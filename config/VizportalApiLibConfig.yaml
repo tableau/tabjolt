@@ -1,0 +1,61 @@
+#---------------------------------------------------------------------------
+# Configuration file for Vizportal API Lib
+#---------------------------------------------------------------------------
+default {
+
+    defaultDesktopApiVersion: 0.31
+
+    defaultUsername: user
+    defaultUserPassword: password
+
+    # Defines where the test harness will search for YAML test case files
+    # Will recursively search subdirectories.
+    # Tests are checked in under: product-tests/java/tests/server/YamlTests/testcases/
+    yamlTestCaseFilesLocation: ./TestCases/
+
+    # A set of yml test files or directories to be run
+    # If regular expressions are set here then only test files whose names match one of them will be run
+    # If this is not set then all tests will be run as normal
+    # e.g.: {comment, tag} will run all of the comments and tagging tests
+    yamlIncludeTestFiles: {}
+
+    # A set of yml test files or directories NOT to run
+    # If regular expressions are set here then test files whose names match one of them will NOT be run
+    # If this is not set then all tests will be run as normal
+    # e.g.: Filling in {WebClientAPI} will exclude all of the WebClientAPI tests
+    yamlExcludeTestFiles: {permissionTests}
+
+    # Filters on the level of individual test case names. Leave blank to run all yaml test cases.
+    # If filled in with a regular expression only test cases with names matching that regex will be run.
+    # e.g.: filling in bvt would run all tests that include the string "bvt" in their name
+    yamlTestCasesIncludeFilter:
+
+    # Specifies the directory containing Tableau workbooks
+    # Some tests require specific workbooks so care should be taken when changing this value
+    # Workbooks are checked in under: product-tests/data/server/workbooks
+    testWorkbooksLocaiton: ./data/server/workbooks/
+
+    # Specifies the directory containing workbook data sources
+    # Some tests require specific data sources to be present so care should be taken when changing this value
+    # Data sources checked in under: product-tests/data/server/datasources
+    testDatasourcesLocaiton: ./data/server/datasources/
+
+    # Specifies the directory containing server configurations required by some tests
+    # Server configurations checked in under: product-tests/java/tests/server/YamlTests/res
+    predefinedServerStates: ./tests/server/YamlTests/res/
+
+    # Allows exception stack traces to be filtered to reduce noise
+    # Fill in with a list of package prefixes and only stack frames from within those packages will be included in error logs
+    # e.g.: [com.tableausoftware] will show only tableau components in stack traces
+    # If nothing is set then by default all frames will be included
+    stackTraceIncludeFilters: [com.tableausoftware]
+
+    # Allows exception stack traces to be filtered to reduce noise
+    # Fill in with a list of package prefixes and only stack frames NOT within those packages will be included in error logs
+    # e.g.: [org.apache] will exclude any apache components from appearing in stack traces
+    # If nothing is set then by default no frames will be excluded
+    stackTraceExcludeFilters: []
+
+    useWGServerAPIs: false
+    solrWaitTime: 5500
+}
