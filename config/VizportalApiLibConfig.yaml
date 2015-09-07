@@ -1,3 +1,4 @@
+
 #---------------------------------------------------------------------------
 # Configuration file for Vizportal API Lib
 #---------------------------------------------------------------------------
@@ -5,8 +6,8 @@ default {
 
     defaultDesktopApiVersion: 0.31
 
-    defaultUsername: user
-    defaultUserPassword: password
+    defaultUsername: 
+    defaultUserPassword: 
 
     # Defines where the test harness will search for YAML test case files
     # Will recursively search subdirectories.
@@ -25,20 +26,31 @@ default {
     # e.g.: Filling in {WebClientAPI} will exclude all of the WebClientAPI tests
     yamlExcludeTestFiles: {permissionTests}
 
-    # Filters on the level of individual test case names. Leave blank to run all yaml test cases.
-    # If filled in with a regular expression only test cases with names matching that regex will be run.
-    # e.g.: filling in bvt would run all tests that include the string "bvt" in their name
-    yamlTestCasesIncludeFilter:
+    # Filters on the level of individual test tags. Leave blank to run all yaml test cases.
+    # Each value in array is treated as a regex and only test cases or groups with tags matching this regex will be run.
+    # e.g.: filling in pri would run all tests that include the string "pri" in their tags (e.g. pri1, pri0, priority)
+    # Feature tags (of type tag1=value1) only cause exclusion of tests which have those tags but different value
+    # e.g. authenticationType=AD, will include all tests with either no authenticationType tag or with authenticationType=AD tag.
+    #      Any tests with tag authenticationType=Local will not be included.
+    # All feature flags are implicitly added as include tags filters, eg. dataSyncEnabled=false, ha2Enabled=true
+    yamlIncludeTestTags: []
+
+    # Same as yamlIncludeTestTags, except that tests are excluded from running
+    # Leave blank to run all yaml test cases.
+    # Feature tags (of type tag1=value1) only cause exclusion of tests which have those tags with same value
+    # e.g. authenticationType=AD, will exclude all tests with authenticationType=AD tag.
+    #      Tests with no authenticationType tag or different value of authenticationType will not be excluded.
+    yamlExcludeTestTags: []
 
     # Specifies the directory containing Tableau workbooks
     # Some tests require specific workbooks so care should be taken when changing this value
     # Workbooks are checked in under: product-tests/data/server/workbooks
-    testWorkbooksLocaiton: ./data/server/workbooks/
+    testWorkbooksLocation: ./data/server/workbooks/
 
     # Specifies the directory containing workbook data sources
     # Some tests require specific data sources to be present so care should be taken when changing this value
     # Data sources checked in under: product-tests/data/server/datasources
-    testDatasourcesLocaiton: ./data/server/datasources/
+    testDatasourcesLocation: ./data/server/datasources/
 
     # Specifies the directory containing server configurations required by some tests
     # Server configurations checked in under: product-tests/java/tests/server/YamlTests/res
@@ -55,6 +67,18 @@ default {
     # e.g.: [org.apache] will exclude any apache components from appearing in stack traces
     # If nothing is set then by default no frames will be excluded
     stackTraceExcludeFilters: []
+
+    # Enables verification of server state for Vizportal Api test run
+    # It only affects Yaml tests.
+    # Yaml tests require an empty server.
+    # Which means only dafault site, default project, no workbooks, no datasources,
+    #     only 'All Users' group and only guest and first admin users are present on server
+    enableYamlBoundaryValidation: true
+
+    # WARNING: Listing a server in this list will cause server to loose all its data (sites, projects, workbooks, datasources, users)
+    # If target server is listed in this list and enableYamlBoundaryValidation setting is set to true
+    # then server will be cleaned to meet Yaml test requirements.
+    allowListForYamlBoundaryCleanup: [localhost, awaqas]
 
     useWGServerAPIs: false
     solrWaitTime: 5500

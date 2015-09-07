@@ -3,9 +3,10 @@
 #---------------------------------------------------------------------------
 
 default {
-    # viz data source (db, csv).
-    # When data source is db, the program will connect to tableau postgres database and fetch the available views.
-    # When data source is csv, each row needs to be define in this format "/views/%workbook%/%viz%"
+    # viz data source (web, csv).
+    # When data source is web, the program will connect to tableau server and fetch all the available views from all the sites. Note that you will need to provide administrator user name and password in ServerTestConfig.yaml file.
+    # When data source is csv, each row needs to be define in this format "/views/%workbook%/%viz%" for default site or "/site/%site%/views/%workbook%/%viz%"
     vizDataSource: csv
     csvFileName: vizpool.csv
+    reusePresModels: true
 }
