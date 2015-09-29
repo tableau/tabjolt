@@ -8,5 +8,9 @@ default {
     # When data source is csv, each row needs to be define in this format "/views/%workbook%/%viz%" for default site or "/site/%site%/views/%workbook%/%viz%"
     vizDataSource: csv
     csvFileName: vizpool.csv
-    reusePresModels: true
+    # use forceLogin parameter to control whether to force login. By default, tabjolt will detect whether guest mode is turned on. If yes, it will not try to logon.
+    # If no, it will try to logon at the beginning of the test case.
+    # the parameter is to override the behavior. If it is set to true, then it will always try to logon. If it is set to false, then it will fall back to the previous behavior
+    forceLogin: false
+    reusePresModels: false
 }
