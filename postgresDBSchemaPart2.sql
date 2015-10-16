@@ -45,6 +45,13 @@ CREATE TABLE IF NOT EXISTS test_runs (
   max_user_load smallint,
   duration integer,
   do_not_purge boolean NOT NULL DEFAULT false,
+  is_invalid_run boolean DEFAULT false,
+  testpassid character varying(128) DEFAULT NULL::character varying,
+  host character varying(255) DEFAULT NULL::character varying,
+  build character varying(255) DEFAULT NULL::character varying,
+  unofficialflag  boolean DEFAULT false,
+  note character varying(255) DEFAULT NULL::character varying,
+  injector character varying(255) DEFAULT NULL::character varying,
   CONSTRAINT test_runs_pkey PRIMARY KEY (id)
 );
 
@@ -178,6 +185,7 @@ CREATE TABLE IF NOT EXISTS jmeter_data (
   thread_group_id integer NOT NULL,
   thread_num smallint NOT NULL,
   success smallint NOT NULL,
+  engine_id smallint NULL,
   CONSTRAINT jmeter_data_pkey PRIMARY KEY (id),
   CONSTRAINT jmeter_data_group_id_fkey FOREIGN KEY (group_id)
       REFERENCES jmeter_groups (id) MATCH SIMPLE

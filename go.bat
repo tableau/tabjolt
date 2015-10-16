@@ -30,4 +30,4 @@ goto setupArgs
 
 :doneStart
 
-java -cp "bin\*;lib\*" com.tableausoftware.test.tools.perfRunHarness.Main --rootPath=%CD% %CMD_LINE_ARGS%
+java -cp "bin\perfRunHarness\*" com.tableausoftware.test.tools.perfRunHarness.Main --rootPath=%CD% %CMD_LINE_ARGS%

@@ -12,5 +12,12 @@ default {
     # If no, it will try to logon at the beginning of the test case.
     # the parameter is to override the behavior. If it is set to true, then it will always try to logon. If it is set to false, then it will fall back to the previous behavior
     forceLogin: false
+    # set think time to create a pause between tests
+    thinktimeBetweenTest: 0
+    # set think time to create a pause between view and interaction operation for an interact test test
+    thinktimeBeforeInteraction: 0
+    insertOnlyParentSamples: false
     reusePresModels: false
+    invalidateRunAfterMaxErrors: true
+    maximumErrorsInvalidRun: 100000
 }

@@ -9,6 +9,12 @@ default {
     # HTTP User-Agent
     userAgent: java-client-requests
 
+    # Set proxyEnabled to true to enable routing of all test HTTP traffic through a proxy
+    # Default values for proxyHost and proxyPort reflect Fiddler's defaults
+    proxyEnabled: false
+    proxyHost: localhost
+    proxyPort: 8888
+
     users:
         - !!com.tableausoftware.test.server.configuration.User          
           name:
