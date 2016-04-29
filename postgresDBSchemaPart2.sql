@@ -1,3 +1,7 @@
+/* Typically customers don't need to drop, just update schema
+ * If drop is absolutely required, run the commented section
+ * BEWARE THAT YOU WILL LOSE ALL DATA IN DROPPED TABLES
+ * AND IT CANNOT BE RECOVERED
 DROP TABLE IF EXISTS jmeter_data;
 DROP TABLE IF EXISTS counter_data;
 DROP TABLE IF EXISTS counter_groups;
@@ -9,6 +13,8 @@ DROP TABLE IF EXISTS test_name;
 DROP TABLE IF EXISTS thread_name;
 DROP TABLE IF EXISTS boolean_lookup_table;
 DROP TABLE IF EXISTS test_runs;
+DROP TABLE IF EXISTS server_config;
+*/
 
 -- -----------------------------------------------------
 -- Table PerfResults.boolean_lookup_table
@@ -19,8 +25,22 @@ CREATE TABLE IF NOT EXISTS boolean_lookup_table (
   CONSTRAINT boolean_lookup_table_pkey PRIMARY KEY (id)
 );
 
-insert into boolean_lookup_table (id, value) values (0, false);
-insert into boolean_lookup_table (id, value) values (1, true);
+DO $$
+BEGIN
+
+IF EXISTS (select * from boolean_lookup_table where id = 0) THEN
+   RAISE NOTICE 'Value 0 already exists';
+ELSE
+   insert into boolean_lookup_table (id, value) values (0, false);
+END IF;
+IF EXISTS (select * from boolean_lookup_table where id = 1) THEN
+   RAISE NOTICE 'Value 1 already exists';
+ELSE
+   insert into boolean_lookup_table (id, value) values (1, true);
+END IF;
+
+END;
+$$;
 
 -- -----------------------------------------------------
 -- Table PerfResults.test_runs
@@ -55,6 +75,16 @@ CREATE TABLE IF NOT EXISTS test_runs (
   CONSTRAINT test_runs_pkey PRIMARY KEY (id)
 );
 
+DO $$
+BEGIN
+ALTER TABLE IF EXISTS test_runs
+  ADD COLUMN TC_Build_Number bigint DEFAULT NULL;
+ALTER TABLE IF EXISTS test_runs
+  ADD COLUMN investigation_id integer DEFAULT NULL;
+EXCEPTION
+  WHEN duplicate_column THEN RAISE NOTICE 'column already exists';
+END;
+$$;
 
 -- -----------------------------------------------------
 -- Table PerfResults.hosts
@@ -142,6 +172,8 @@ CREATE TABLE IF NOT EXISTS test_name (
   is_parent boolean NOT NULL DEFAULT false,
   CONSTRAINT test_name_pkey PRIMARY KEY (id)
 );
+
+DROP INDEX IF EXISTS idx_test_name_test_name_id;
 
 CREATE INDEX idx_test_name_test_name_id
   ON test_name
@@ -421,4 +453,123 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
 ALTER FUNCTION sp_update_test_run_stats(integer)
+  OWNER TO postgres;
+
+CREATE TABLE IF NOT EXISTS server_config
+(
+  server_config_id serial NOT NULL,
+  test_run_id integer NOT NULL,
+  host_id smallint NOT NULL,
+  topology_id smallint,
+  numvizqlprocs smallint,
+  numdataengines smallint,
+  numcacheservers smallint,
+  numdataservers smallint,
+  numbackrounders smallint,
+  numvizportals smallint,
+  numcores smallint,
+  numnics smallint,
+  processorspeedmhz smallint,
+  memorygb smallint,
+  CONSTRAINT server_config_pkey PRIMARY KEY (server_config_id),
+  CONSTRAINT server_config_test_run_id_fkey FOREIGN KEY (test_run_id)
+      REFERENCES test_runs (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT server_config_host_id_fkey FOREIGN KEY (host_id)
+      REFERENCES hosts (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE server_config
+  OWNER TO postgres;
+GRANT ALL ON TABLE server_config TO postgres;
+
+CREATE TABLE IF NOT EXISTS server_topology(
+    topology_id serial NOT NULL,
+    topology character varying (4096) DEFAULT NULL::character varying
+);
+
+ALTER TABLE server_topology
+  OWNER TO postgres;
+GRANT ALL ON TABLE server_topology TO postgres;
+
+CREATE OR REPLACE FUNCTION sp_insert_server_config(test_run_id_param integer, hostParam character varying, numcores smallint, numnics smallint, procspeedmhz smallint, memorygb smallint, numvizqlprocs smallint, numdataengines smallint, numcacheservers smallint, numdataservers smallint, numbackrounders smallint, numvizportals smallint, topologyparam character varying)
+  RETURNS void AS
+$BODY$
+
+    declare topologyId smallint;
+    declare hostId smallint;
+    BEGIN
+
+        PERFORM (SELECT topologyId = topology_id FROM server_topology
+        where topology = topologyParam);
+
+        IF topologyId is null THEN
+            INSERT INTO server_topology (topology) values (topologyParam);
+            SELECT LASTVAL() INTO topologyId;
+        END IF;
+
+        PERFORM (SELECT hostId = id FROM hosts
+        where hostname = hostParam);
+
+        IF hostId is null THEN
+            INSERT INTO hosts (hostname) values (hostParam);
+            SELECT LASTVAL() INTO hostId;
+        END IF;
+
+        IF NOT EXISTS (SELECT test_run_id from server_config where test_run_id = test_run_id_param and host_id = hostId) THEN
+            INSERT INTO server_config
+                    (test_run_id
+                    ,host_id
+                    ,topology_id
+                    ,NumCores
+                    ,NumNics
+                    ,ProcessorSpeedMhz
+                    ,MemoryGB
+                    ,NumVizQLProcs
+                    ,NumDataEngines
+                    ,NumCacheServers
+                    ,NumDataServers
+                    ,NumBackrounders
+                    ,NumVizPortals
+                    )
+            VALUES
+                    (test_run_id_param,
+                    hostId,
+                    topologyId,
+                    NumCores,
+                    NumNics,
+                    ProcSpeedMhz,
+                    MemoryGb,
+                    NumVizQLProcs,
+                    NumDataEngines,
+                    NumCacheServers,
+                    NumDataServers,
+                    NumBackrounders,
+                    NumVizPortals
+                    );
+        ELSE
+
+          UPDATE server_config
+            SET
+            NumCores = NumCores,
+            NumNics = NumNics,
+            ProcessorSpeedMhz = ProcSpeedMhz,
+            MemoryGB = MemoryGb,
+            NumVizQLProcs = NumVizQLProcs,
+            NumDataEngines = NumDataEngines,
+            NumCacheServers = NumCacheServers,
+            NumDataServers = NumDataServers,
+            NumBackrounders = NumBackrounders,
+            NumVizPortals = NumVizPortals,
+            topology_id = topologyId
+            where test_run_id = test_run_id_param and host_id = hostId;
+        END IF;
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION sp_insert_server_config(integer, character varying, smallint, smallint, smallint, smallint, smallint, smallint, smallint, smallint, smallint, smallint, character varying)
   OWNER TO postgres;
