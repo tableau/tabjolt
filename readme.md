@@ -32,7 +32,7 @@ You can view a video on how to analyze TabJolt results here: https://www.youtube
 
 ## What are the requirements to get started?
 
-Please refer to [the installation guide](https://github.com/tableau/tabjolt/blob/TabjoltForTableauServer9/TabJolt%20Installation%20Guide.pdf) for detailed installation instuctions. 
+Please refer to [the installation guide](https://github.com/tableau/tabjolt/blob/master/TabJolt%20Installation%20Guide.pdf) for detailed installation instuctions. 
 
 ## Is TabJolt supported? 
 
