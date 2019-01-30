@@ -15,6 +15,8 @@ You can use TabJolt for many scenarios, however, here are the key questions it c
 
 ## Where can I learn more about TabJolt?
 
+You can view the manual at: https://community.tableau.com/docs/DOC-22488
+
 You can view a TabJolt overview video at: https://www.youtube.com/watch?v=Ro9z3jSycIo
 
 ## How do I get started with TabJolt?
