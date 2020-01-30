@@ -38,7 +38,7 @@ Please refer to [the installation guide](https://github.com/tableau/tabjolt/blob
 
 ## Is TabJolt supported?
 
-TabJolt is made available AS-IS with no support. This is intended to be a self service tool and includes several training videos and an installation guide. Please review those fully to get the most out of TabJolt.
+TabJolt is made available AS-IS with no support. Please see the Binary Code License Agreement for full license information. This is intended to be a self service tool and includes several training videos and an installation guide. Please review those fully to get the most out of TabJolt.
 
 ## What if I have a question?
 
