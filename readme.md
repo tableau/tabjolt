@@ -1,8 +1,11 @@
 # TabJolt #
+### Latest Releases ###
+* [Prerelease 2020.1.0 Alpha](https://github.com/tableau/tabjolt/releases/tag/v2020.1.0-alpha)
+* [Release 2019.2.0](https://github.com/tableau/tabjolt/releases/tag/v2019.2.0)
 
 ## What is TabJolt?
 
-TabJolt is a ìPoint and Runî load and performance testing tool specifically designed for Tableau Server 9.0 and later. It helps you (Tableau Server Administrators) understand how Tableau Server scales with your workloads, in your environment, to inform your scalability and capacity needs. TabJolt eliminates the need for script development and script maintenance, which is often required with other load testing solutions. You can simply point TabJolt to your published views on the Tableau Server, and it will automatically drive user specified loads for any duration.
+TabJolt is a ‚ÄúPoint and Run‚Äù load and performance testing tool specifically designed for Tableau Server 9.0 and later. It helps you (Tableau Server Administrators) understand how Tableau Server scales with your workloads, in your environment, to inform your scalability and capacity needs. TabJolt eliminates the need for script development and script maintenance, which is often required with other load testing solutions. You can simply point TabJolt to your published views on the Tableau Server, and it will automatically drive user specified loads for any duration.
 
 ## When to use TabJolt?
 
