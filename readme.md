@@ -1,7 +1,9 @@
 # TabJolt #
 ### Latest Releases ###
 * [Prerelease 2020.1.0 Alpha](https://github.com/tableau/tabjolt/releases/tag/v2020.1.0-alpha)
+  * This contains a JMeter upgrade from version 2.x to 5.x to address bug fixes.
 * [Release 2019.2.0](https://github.com/tableau/tabjolt/releases/tag/v2019.2.0)
+  * Please consider using the 2020.1.0 release in order to ensure you are running with all available bug fixes.
 
 ## What is TabJolt?
 
