@@ -1,7 +1,7 @@
 # TabJolt #
 ### Latest Release ###
-* [Release 2021.1](https://github.com/tableau/tabjolt/releases/tag/v2021.1)
-  * Please consider using the 2021.1 release in order to ensure you are running with all available bug fixes and new features
+* [Release 2021.1.1](https://github.com/tableau/tabjolt/releases/tag/v2021.1.1)
+  * Please consider using the 2021.1.x release in order to ensure you are running with all available bug fixes and new features
 
 ## What is TabJolt?
 
