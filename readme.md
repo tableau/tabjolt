@@ -256,22 +256,33 @@ Please follow these steps to set the `PATH` and `JAVA_HOME` appropriately:
 * Once `JAVA_HOME` is set, please set the `PATH` variable to point to the `\bin` folder in the JDK installation directory, as shown below
     `set PATH=%PATH%;d:\jdk-17.0.2\bin`
 
+
+
 &nbsp;
 &nbsp;
+
+
+
 
 **2. I am receiving the following error while running `ConfigureTabjolt.bat`.  What is a possible cause?**
 `Error: Could not find or load main class
 com.tableausoftware.test.tools.TabjoltUI.tabjoltUI`
 **Solution**:
+
 `ConfigureTabjolt.bat` must load the class `TabjoltUI` class, and in the example above, the class is not on the path.  
 To resolve this, on your command prompt, please navigate to the folder containing ConfigureTabjolt.bat (usually the TabJolt installation folder) and issue the command from there.
 
+
+
 &nbsp;
 &nbsp;
+
+
 
 
 **3. I see no results when I run `RunTabjolt.bat` . What’s wrong?**
 **Solution**:
+
 Most likely, your `RunTabjolt.bat` script has no content/erroneous content and it may be the result of a previous copy-paste that has rendered it empty.  For example, one can pipe it by mistake if the whole of the below code is copy-pasted and executed on the console. The > will erase all content from the target (`RunTabjolt.bat` in this case)
 
 `C:\TabJolt>RunTabjolt.bat --t=testplans\InteractVizLoadTest.jmx --d=10 --c=1`
@@ -283,15 +294,25 @@ C:\TabJolt>C:\TabJolt>RunTabjolt.bat --t=testplans\InteractVizLoadTest.jmx --d=1
 operable program or batch file.
 //After this command, the RunTabjolt.bat is rendered empty!
 ```
+
 &nbsp;
 &nbsp;
 
+
+
 **4. I am not able to configure TabJolt, receiving the error message : `Unable to get the top view URLs from Tableau server`.**
+
 **Solution**:
 This happens when your default site has no content. Please add some workbooks to the default site to make this work. Also, please verify that no errors were seen on the console while configuration.
 
 
+&nbsp;
+&nbsp;
+
+
+
 **5. My TabJolt test was running fine with 0 errors and now all of a sudden, I see errors `java.net.SocketTimeoutException: Read timed out`**
+
 **Solution**:
 You may have uncovered an actual performance issue!
 
@@ -299,5 +320,49 @@ This error means that the server is taking longer to send the response until tim
 
 You may try running the same test by lowering down the thread count and see what happens. If it runs fine on lower thread count, then your server/server-cluster is not able to scale with the higher load.
 
+
+
 &nbsp;
 &nbsp;
+
+
+
+
+**6. During configuration stage, I am receiving an error at the first screen  `“Unable to login to Tableau Server. Please double check that Tableau server Uri, user name, and password that you have entered are correct”`**
+
+**Solution**:
+Please follow these steps:
+
+
+* First, from the machine that has TabJolt installed, please make sure you can login to the site manually using your browser. If you cannot login with the browser, TabJolt will also not be able to login.
+* If you can login through your browser, but not through TabJolt, please copy and send the errors and full console log during this configuration step to us.
+* After a successful logging through the first screen during the configuration step, the typical structure of `ServerTestConfig.yaml` (in the \config folder of your TabJolt installation) looks as  below.
+
+  ```
+  default {
+  proxyEnabled: false
+  proxyPort: 8888
+  adminUserName: tsi.lan\<tsmUsername>
+  hostUri: http://<URL of your server> (http://srajimwale1/)
+  userAgent: java-client-requests
+  proxyHost: localhost
+  requestTimeout: 180000
+  users:
+  - !!com.tableausoftware.test.server.configuration.User {email: '', friendlyName: '',
+  lookupKey: '', name: <yourVizPortalUsername>, password: <yourVizportalPassword>, role: null, site: null}
+  adminPassword: <tsmPassword>
+  }
+  perftestconfig.yaml
+  ```
+
+  &nbsp;
+  &nbsp;
+
+
+**7. I ran a simple test using TabJolt on the command line and got a run id. I just want to know load times of the vizzes. What is the best place to look for it?**
+
+**Solution**:
+On the `PerformanceViz.twb` workbook, `Key Perf Indicators dashboard` (It’s the first from the left. You may need to scroll to the very left) would be the place to look for that. The field `AVG Response Time (msec)` in the table is the one for the average of the load times for all requests. The field `Error Rate %` It will also show you percentage of error (requests that resulted in erroneous server status codes) and the field `AVG TPS (Test Per Second)` will show you the throughput, i.e.  rate in terms of average number of requests per second for the test.
+
+  &nbsp;
+  &nbsp;
