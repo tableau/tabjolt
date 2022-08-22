@@ -403,3 +403,100 @@ If for some reason, you need to drop and re-create the TabjJolt results database
 
 * To delete the TabJolt results DB,  you can run the script `TabJoltInstallationFolder>\sql\DeleteTabjoltResultsDatabase.sql` located in `\sql` folder in the TabJolt main installation directory.
     * Open `psql` shell (you will find that in `Start Menu → PostgreSQL <version> → SQL Shell (psql)`). A window such as below will open up and ask for some information. Accept all the default and then type in the password for user `postgres` user when prompted. All the values need to match with what is contained in `<TabjoltInstallationFolder>\config\perftestconfig.yaml`. After the password is correctly entered, you will see a screen as below -
+
+    <kbd>![Create DB](CreatePerfDB_Psql_1.png)</kbd>
+
+    * Once the above step is completed, run the following command to create the Tabjolt DB in the PostgreSQL server.
+
+    `\i 'C:\\TabJolt\\sql\\DeleteTabjoltResultsDatabase.sql'` (assuming TabJolt installation folder is `C:\TabJolt`)
+
+  **Console output**
+
+  ```
+  postgres=# \i 'C:\\TabJolt\\sql\\DeleteTabjoltResultsDatabase.sql'
+  psql:C:/TabJolt/sql/DeleteTabjoltResultsDatabase.sql:8: NOTICE:  table "jmeter_data" does not exist, skipping
+  DROP TABLE
+  psql:C:/TabJolt/sql/DeleteTabjoltResultsDatabase.sql:9: NOTICE:  table "counter_data" does not exist, skipping
+  DROP TABLE
+  ....
+  ....
+  ....
+  DROP DATABASE
+  ```
+
+* To create the Tabjolt results DB, run the script `TabJoltInstallationFolder>\sql\CreateTabjoltResultsDatabase.sql` (located at the same folder as `DeleteTabjoltResultsDatabase.sql`) in the same way as above.
+
+  **Console output**
+
+  ```
+  postgres=#
+  psql:C:/TabJolt/sql/CreateTabjoltResultsDatabase.sql:45: NOTICE: creating database now!
+  DO
+  DO
+  DO
+  DO
+  DO
+  DO
+  DO
+  ....
+  ....
+  ```
+
+
+&nbsp;
+&nbsp;
+
+
+
+**11. While connecting to `PerformanceViz.twb`, received a message saying, `an error occured while connecting to PostGreSQL.``**  
+
+**Details of the error**:
+
+```
+An error occurred while communicating with the PostgreSQL data source 'Perf_Counters (Postgres_Linux)'
+Unable to connect to the server. Check that the server is running and that you have access privileges to the requested database.
+Error Code: BC42EF73
+Connection to localhost:48123 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+Unable to connect to the PostgreSQL server "localhost". Check that the server is running and that you have access privileges to the requested database.
+```
+
+**Solution**:
+
+Please ensure you are using the port `5432` to connect to postgres. Also, please ensure you are supplying the same password for the `postgres` user that is mentioned in `perftestconfig.yaml` file in your `\config` folder.
+
+
+
+  &nbsp;
+  &nbsp;
+
+
+12. After issuing the command for `RunTabjolt.bat`, I received the following error: `Option only takes one value:` for `RunTabjolt.bat` command.    What am I missing?
+
+**Console output**:
+
+```
+C:\TabJolt>RunTabjolt.bat --t=testplans\InteractVizLoadTest.jmx —d=60 —c=1
+Java version is  11011+9
+Exception in thread "main" uk.co.flamingpenguin.jewel.cli.ArgumentValidationException: Option only takes one value: --testPlan -t value : the location of the jmeter test plan (.jmx).
+       at uk.co.flamingpenguin.jewel.cli.ValidationErrorBuilderImpl.validate(ValidationErrorBuilderImpl.java:71)
+       at uk.co.flamingpenguin.jewel.cli.ArgumentValidatorImpl.validateArguments(ArgumentValidatorImpl.java:112)
+       at uk.co.flamingpenguin.jewel.cli.CliImpl.parseArguments(CliImpl.java:33)
+       at com.tableausoftware.test.tools.perfRunHarness.PerfRunHelper.parseArguments(PerfRunHelper.java:1019)
+       at com.tableausoftware.test.tools.perfRunHarness.Main.main(Main.java:60)
+```
+
+In the most recent versions of TabJolt, you may see something like:
+```
+You will need to provide duration as parameters.
+You will need to provide thread count as parameters.
+```
+<kbd>![Option takes 1 value](OptionTakesOneValue.jpg)</kbd>
+
+**Solution**:
+
+The most likely cause behind this is:
+
+* Using a single dash `-` as opposed to a double-dash `--` for one or more command line flags (parameters) for the `RunTabjolt.bat` command by mistake. (Notice the `—d` parameter in the above example)
+* Some editors like TextEdit or Notepad convert double-dashes into single-dash.
+
+Please ensure that you use use double-dashes (`--`) for each and every flag for `RunTabjolt.bat` command.
