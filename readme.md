@@ -1,22 +1,21 @@
-# **TabJolt** #
-## **Latest Release** ##
+# **Latest Release**
 * [Release 2022.2.3](https://github.com/tableau/tabjolt/releases/tag/v2022.2.3)
   * Please consider using the 2022.2.x release in order to ensure you are running with all available bug fixes and new features, including no log4j or Spring vulnerabilities.
   * This release includes significant documentation updates available in the `docs` folder of the package.
 
-## **Quick Start Guide**
+# **Quick Start Guide**
 
-#### Notes
+### Notes
 
   - Tabjolt only runs on Windows.
   - Tabjolt can test both Windows and Linux Tableau Servers. This guide is geared toward a Windows Tableau Server installation.<br> However, online resources can provide guidance for Linux Tableau Server specific portions of configuration and execution.<br> This guide will be updated with Linux Tableau Server testing details in the near future.
 
 
-### **Step 1: Installation and setup**
+## **Step 1: Installation and setup**
 
-#### **Pre-requisites**
+### **Pre-requisites**
 
-##### **Install Java**
+#### **Install Java**
 
 - To ensure that JDK is present and installed correctly, run this command on the command prompt
 <br>`java -version`
@@ -29,7 +28,7 @@
 &nbsp;
 
 
-##### **Install PostgreSQL**
+#### **Install PostgreSQL**
 
 PostgreSQL must be installed for Tabjolt to be able to save its results.
 
@@ -58,7 +57,7 @@ The command should return the postgres version<br>
 <br>`set PATH=%PATH%;C:\Program Files\PostgreSQL\14\bin`
 &nbsp;
 
-##### **Verify Tableau Server connectivity**
+#### **Verify Tableau Server connectivity**
 
 - On the machine where Tabjolt is going to run, ensure that you can log in to both the Tableau server
 (**Example**: `http://<myServerPortalURL>`) and the TSM UI (**Example**: `https://<myServerTSMPortalURL>:8850`)
@@ -71,7 +70,7 @@ from your browser using their respective credentials.
 
 &nbsp;
 
-##### **Configure Tableau Server**
+#### **Configure Tableau Server**
 
 - In order to collect JMX counters from the Tableau server, ensure that JMX is enabled on the server.
 To confirm run the following on the Tableau Server machine:
@@ -80,7 +79,7 @@ To confirm run the following on the Tableau Server machine:
 Otherwise, please follow steps provided in [this](https://help.tableau.com/current/server/en-us/ports_jmx.htm) article.
 &nbsp;
 
-#### **Install Tabjolt**
+### **Install Tabjolt**
 
 - Tabjolt is available as a free download from [here](https://github.com/tableau/tabjolt/releases)
 - Copy `Tabjolt_[Version].zip` to the machine that will run Tabjolt (the "`load injector`") and unzip it to the location of your choice.
@@ -90,9 +89,9 @@ We recommend Tabjolt installation directory to be `C:\TabJolt`
 &nbsp;
 &nbsp;
 
-### **Step 2: Configuration**
+## **Step 2: Configuration**
 
-#### **Create the Tabjolt results DB**
+### **Create the Tabjolt results DB**
 
 The Tabjolt results DB (`perfresults`) will be created in the **PostgreSQL** server by running the script
 `<TabjoltInstallationFolder>\sql\CreateTabjoltResultsDatabase.sql` using the `psql` shell
@@ -116,14 +115,14 @@ DO
 DO...
 ```
 
-#### **Configure Tabjolt**
+### **Configure Tabjolt**
 
 - To configure Tabjolt, run the script `<TabjoltInstallationFolder>\ConfigureTabjolt.bat` from command prompt.
 Provide values as in the examples shown below.
 
 &nbsp;
 
-##### **Screen 1**:
+#### **Screen 1**:
 
 - Provide the server endpoint and credentials for your server as shown below
 - Enter a `Master Password` of your choice. This will be used as a key to encrypt all other passwords.
@@ -133,12 +132,12 @@ Provide values as in the examples shown below.
 <br><kbd>![Screen 1](ConfigureTabjolt_Screen1.png)</kbd>
 &nbsp;
 
-##### **Screen 2**:
+#### **Screen 2**:
 
 - Click `Next`
 &nbsp;
 
-##### **Screen 3**:
+#### **Screen 3**:
 
 - Enter the credentials for the TSM
 - Click `Finish`
@@ -147,7 +146,7 @@ Provide values as in the examples shown below.
 &nbsp;
 &nbsp;
 
-##### **If using a Linux server: Manually create ssh file**:
+#### **If using a Linux server: Manually create ssh file**:
 
 - The ssh file is needed by the Data Retriever to connect to the server machines and collect performance counters.
 - It will not be created by the Configure Tabjolt steps above.
@@ -175,7 +174,7 @@ Provide values as in the examples shown below.
 - Add the contents of the `id_rsa.pub` file created by `ssh-keygen` command above to the `authorized_keys` file. This will allow clients who have the `sshUserIdentityFile.txt` file to connect to this Linux machine.
 
 
-### **Step 3: Run Tabjolt**
+## **Step 3: Run Tabjolt**
 
 - Now, you can start your load test by navigating to the TabJolt installation directory (**Example**: `C:\TabJolt`),
 and running the command such as the one below
@@ -201,7 +200,7 @@ and running the command such as the one below
 - Once the Tabjolt run starts, make a note of the run id that is displayed on the output as below. This will be used for filtering out the results as explained in the next section.
 <br>`Perf run result is saving to result repository. Please use this RUN ID 4 to view your result in Tableau`
 &nbsp;
-### **Step 4: Analyze Results**
+## **Step 4: Analyze Results**
 
 - You can check for the error count on the CMD console while the test is in progress from the `Errors:` field as shown below
 
@@ -224,10 +223,16 @@ in the dashboard `Key Perf Indicators` in the workbook.
  - The **CPU and Memory** on the host machines are provided in the `CPU & Memory` dashboard
  - Perf metrics for the **Vizql server** are provided in the `Vizql` dashboard
  - Similarly, perf metrics for the **application server** and **data server** can be found in the `Application Server` and `DataServer` dashboards.
-# **For using Replayer**
+
+
+
+# **If using Replayer**
 
 - The Replay tool is now part of the Tabjolt installation.
 - You can learn more about the Replay tool on the Tableau Community Forums [here](https://community.tableau.com/s/question/0D54T00000CWd7cSAD/replayer).
 - To use the Replay tool from the UI, run `RunReplay.bat`.
 - The replay tool can also be run as a test in Tabjolt. A `Replay.jmx` file is provided in the `testplans` folder. You can call
 <br>`RunTabjolt.bat --t=testplans\Replay.jmx --z={replayFile:mytraffic.json}`. You will need to put the json file with traffic to replay in your Tabjolt installation folder, and specify it in the custom parameters argument.
+
+
+# **Frequently Asked Questions (FAQs)**
