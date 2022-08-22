@@ -236,3 +236,22 @@ in the dashboard `Key Perf Indicators` in the workbook.
 
 
 # **Frequently Asked Questions (FAQs)**
+
+1.  I encountered the following error related to Java while running/configuring TabJolt:
+
+`Error 11000 was unexpected at this time`
+
+**Solution**:
+Please set both the environment variables `PATH` and `JAVA_HOME` prior to configuring or running TabJolt.  Sometimes, you may have multiple versions of Java running on your machine (which is fine!), hence, you may point both the environment variables to the correct Java version. Please note, TabJolt supports only **x64** bit **openJDK version 11** or above. If needed, please download it from here (https://openjdk.java.net/projects/jdk/17/).  If PATH and/or JAVA_HOME are not set properly, you may also encounter an error that says:
+
+`'java' is not recognized as an internal or external command`
+
+Please follow these steps to set the `PATH` and `JAVA_HOME` appropriately:
+
+* First, you may also want to ensure that `JAVA_HOME` is set to point the location of the JDK installation directory. Run the following command to verify.
+    `echo %JAVA_HOME% `
+    The command should return something like: `D:\jdk-17.0.2`
+* If it does not return the path to JDK directory, set `JAVA_HOME` by running a command such as in the example below:
+    `set JAVA_HOME=D:\jdk-17.0.2\`
+* Once `JAVA_HOME` is set, please set the `PATH` variable to point to the `\bin` folder in the JDK installation directory, as shown below
+    `set PATH=%PATH%;d:\jdk-17.0.2\bin`
