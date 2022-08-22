@@ -92,7 +92,7 @@ We recommend Tabjolt installation directory to be `C:\TabJolt`
 
 ### **Step 2: Configuration**
 
-### **Create the Tabjolt results DB**
+#### **Create the Tabjolt results DB**
 
 The Tabjolt results DB (`perfresults`) will be created in the **PostgreSQL** server by running the script
 `<TabjoltInstallationFolder>\sql\CreateTabjoltResultsDatabase.sql` using the `psql` shell
@@ -116,14 +116,14 @@ DO
 DO...
 ```
 
-### **Configure Tabjolt**
+#### **Configure Tabjolt**
 
 - To configure Tabjolt, run the script `<TabjoltInstallationFolder>\ConfigureTabjolt.bat` from command prompt.
 Provide values as in the examples shown below.
 
 &nbsp;
 
-#### **Screen 1**:
+##### **Screen 1**:
 
 - Provide the server endpoint and credentials for your server as shown below
 - Enter a `Master Password` of your choice. This will be used as a key to encrypt all other passwords.
@@ -133,12 +133,12 @@ Provide values as in the examples shown below.
 <br><kbd>![Screen 1](ConfigureTabjolt_Screen1.png)</kbd>
 &nbsp;
 
-#### **Screen 2**:
+##### **Screen 2**:
 
 - Click `Next`
 &nbsp;
 
-#### **Screen 3**:
+##### **Screen 3**:
 
 - Enter the credentials for the TSM
 - Click `Finish`
@@ -147,7 +147,7 @@ Provide values as in the examples shown below.
 &nbsp;
 &nbsp;
 
-#### **If using a Linux server: Manually create ssh file**:
+##### **If using a Linux server: Manually create ssh file**:
 
 - The ssh file is needed by the Data Retriever to connect to the server machines and collect performance counters.
 - It will not be created by the Configure Tabjolt steps above.
