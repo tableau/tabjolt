@@ -373,7 +373,7 @@ On the `PerformanceViz.twb` workbook, `Key Perf Indicators dashboard` (It’s th
 **Solution**:
 On the `PerformanceViz.twb` workbook, please use the `Test Drill Down` dashboard. On the top chart, you can select individual data points (hits) for response times and the bottom chart will show you where the time was spent for that request.
 
-<img src="https://github.com/tableau/tabjolt/blob/tabjolt-faqs/TestDrillDown_1.png" alt="Drill Down 1" width="250"/>
+<img src="https://github.com/tableau/tabjolt/blob/tabjolt-faqs/TestDrillDown_1.jpg" alt="Drill Down 1" width="400"/><img src="https://github.com/tableau/tabjolt/blob/tabjolt-faqs/TestDrillDown_2.jpg" alt="Drill Down 1" width="400"/>
 
 
 &nbsp;
