@@ -165,7 +165,7 @@ Provide values as in the examples shown below.
 - This will create 2 files in the `.ssh` folder in your home folder - `id_rsa` and `id_rsa.pub`.
 - The output should look something like this:
 <br>Example:
-<br><kbd>![Screen 4](ConfigureTabjolt_Screen4_Linux.PNG)</kbd>
+<br><kbd>![Screen 4](ConfigureTabjolt_Screen4_Linux.png)</kbd>
 &nbsp;
 &nbsp;
 
