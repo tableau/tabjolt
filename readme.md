@@ -366,3 +366,14 @@ On the `PerformanceViz.twb` workbook, `Key Perf Indicators dashboard` (It’s th
 
   &nbsp;
   &nbsp;
+
+
+**8. I want to see the breakdown of the response times. Where do I look?**
+
+**Solution**:
+On the `PerformanceViz.twb` workbook, please use the `Test Drill Down` dashboard. On the top chart, you can select individual data points (hits) for response times and the bottom chart will show you where the time was spent for that request.
+
+<kbd>![Drill Down 1](TestDrillDown_1.png)</kbd><kbd>![Drill Down 1](TestDrillDown_2.png)</kbd>
+
+&nbsp;
+&nbsp;
