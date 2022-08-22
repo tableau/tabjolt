@@ -255,3 +255,26 @@ Please follow these steps to set the `PATH` and `JAVA_HOME` appropriately:
     `set JAVA_HOME=D:\jdk-17.0.2\`
 * Once `JAVA_HOME` is set, please set the `PATH` variable to point to the `\bin` folder in the JDK installation directory, as shown below
     `set PATH=%PATH%;d:\jdk-17.0.2\bin`
+
+
+
+2. I am receiving the following error while running `ConfigureTabjolt.bat`.  What is a possible cause?
+`Error: Could not find or load main class
+com.tableausoftware.test.tools.TabjoltUI.tabjoltUI`
+**Solution**:
+`ConfigureTabjolt.bat` must load the class `TabjoltUI` class, and in the example above, the class is not on the path.  
+To resolve this, on your command prompt, please navigate to the folder containing ConfigureTabjolt.bat (usually the TabJolt installation folder) and issue the command from there.
+
+3. I see no results when I run `RunTabjolt.bat` . What’s wrong?
+**Solution**:
+Most likely, your `RunTabjolt.bat` script has no content/erroneous content and it may be the result of a previous copy-paste that has rendered it empty.  For example, one can pipe it by mistake if the whole of the below code is copy-pasted and executed on the console. The > will erase all content from the target (`RunTabjolt.bat` in this case)
+
+`C:\TabJolt>RunTabjolt.bat --t=testplans\InteractVizLoadTest.jmx --d=10 --c=1`
+
+**Example**:
+```
+C:\TabJolt>C:\TabJolt>RunTabjolt.bat --t=testplans\InteractVizLoadTest.jmx --d=10 --c=1
+'C:\TabJolt' is not recognized as an internal or external command,
+operable program or batch file.
+//After this command, the RunTabjolt.bat is rendered empty!
+```
