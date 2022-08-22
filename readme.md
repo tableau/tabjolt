@@ -237,7 +237,7 @@ in the dashboard `Key Perf Indicators` in the workbook.
 
 # **Frequently Asked Questions (FAQs)**
 
-1.  I encountered the following error related to Java while running/configuring TabJolt:
+**1.  I encountered the following error related to Java while running/configuring TabJolt:**
 
 `Error 11000 was unexpected at this time`
 
@@ -256,16 +256,21 @@ Please follow these steps to set the `PATH` and `JAVA_HOME` appropriately:
 * Once `JAVA_HOME` is set, please set the `PATH` variable to point to the `\bin` folder in the JDK installation directory, as shown below
     `set PATH=%PATH%;d:\jdk-17.0.2\bin`
 
+&nbsp;
+&nbsp;
 
-
-2. I am receiving the following error while running `ConfigureTabjolt.bat`.  What is a possible cause?
+**2. I am receiving the following error while running `ConfigureTabjolt.bat`.  What is a possible cause?**
 `Error: Could not find or load main class
 com.tableausoftware.test.tools.TabjoltUI.tabjoltUI`
 **Solution**:
 `ConfigureTabjolt.bat` must load the class `TabjoltUI` class, and in the example above, the class is not on the path.  
 To resolve this, on your command prompt, please navigate to the folder containing ConfigureTabjolt.bat (usually the TabJolt installation folder) and issue the command from there.
 
-3. I see no results when I run `RunTabjolt.bat` . What’s wrong?
+&nbsp;
+&nbsp;
+
+
+**3. I see no results when I run `RunTabjolt.bat` . What’s wrong?**
 **Solution**:
 Most likely, your `RunTabjolt.bat` script has no content/erroneous content and it may be the result of a previous copy-paste that has rendered it empty.  For example, one can pipe it by mistake if the whole of the below code is copy-pasted and executed on the console. The > will erase all content from the target (`RunTabjolt.bat` in this case)
 
@@ -278,3 +283,21 @@ C:\TabJolt>C:\TabJolt>RunTabjolt.bat --t=testplans\InteractVizLoadTest.jmx --d=1
 operable program or batch file.
 //After this command, the RunTabjolt.bat is rendered empty!
 ```
+&nbsp;
+&nbsp;
+
+**4. I am not able to configure TabJolt, receiving the error message : `Unable to get the top view URLs from Tableau server`.**
+**Solution**:
+This happens when your default site has no content. Please add some workbooks to the default site to make this work. Also, please verify that no errors were seen on the console while configuration.
+
+
+**5. My TabJolt test was running fine with 0 errors and now all of a sudden, I see errors `java.net.SocketTimeoutException: Read timed out`**
+**Solution**:
+You may have uncovered an actual performance issue!
+
+This error means that the server is taking longer to send the response until time-out is hit. It could be due issues on the network or server-side.
+
+You may try running the same test by lowering down the thread count and see what happens. If it runs fine on lower thread count, then your server/server-cluster is not able to scale with the higher load.
+
+&nbsp;
+&nbsp;
