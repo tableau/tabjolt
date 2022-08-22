@@ -373,8 +373,33 @@ On the `PerformanceViz.twb` workbook, `Key Perf Indicators dashboard` (It’s th
 **Solution**:
 On the `PerformanceViz.twb` workbook, please use the `Test Drill Down` dashboard. On the top chart, you can select individual data points (hits) for response times and the bottom chart will show you where the time was spent for that request.
 
-<img src="https://github.com/tableau/tabjolt/blob/tabjolt-faqs/TestDrillDown_1.jpg" alt="Drill Down 1" width="400"/><img src="https://github.com/tableau/tabjolt/blob/tabjolt-faqs/TestDrillDown_2.jpg" alt="Drill Down 1" width="400"/>
+<kbd>![Drill Down 1](TestDrillDown_1.jpg)</kbd><kbd>![Drill Down 1](TestDrillDown_2.jpg)</kbd>
 
 
 &nbsp;
 &nbsp;
+
+
+**9. If I have 5 vizzes in my test, if I run Tabjolt with this command -**
+
+`RunTabjolt --t=testplans\InteractVizLoadTest.jmx --d=240 --c =1`
+
+**does TabJolt execute 1 user hitting 5 vizzes at once, or does it cycle through the 5 one at a time?**
+
+**Solution**:
+Let’s say TabJolt is executing the Jmeter test scenario `InteractVizLoadTest.jmx` with ``--d=240 --c=4`, parameters. The  `--c=4`, means that you have just `4 parallel threads` each hitting all your 5 vizzes again and again, one after the other  in their iteration. All the 4 threads keep iterating like this again and again until the duration of the test.
+
+Further, the rate at which vizzes are loaded together by the `4 threads` in  `240 seconds` can be found from the `AVG TPS (Test Per Second)` field in the `Key Performance Indicators` dashboard. (AVG TPS => **average transactions per second** or **average viz-hitting per second**)
+
+
+&nbsp;
+&nbsp;
+
+
+**10. I messed up while creating the TabJolt results DB using Postgres. How do I drop and re-create the database?**  
+
+**Solution**:
+If for some reason, you need to drop and re-create the TabjJolt results database, please follow these steps:
+
+* To delete the TabJolt results DB,  you can run the script `TabJoltInstallationFolder>\sql\DeleteTabjoltResultsDatabase.sql` located in `\sql` folder in the TabJolt main installation directory.
+    * Open `psql` shell (you will find that in `Start Menu → PostgreSQL <version> → SQL Shell (psql)`). A window such as below will open up and ask for some information. Accept all the default and then type in the password for user `postgres` user when prompted. All the values need to match with what is contained in `<TabjoltInstallationFolder>\config\perftestconfig.yaml`. After the password is correctly entered, you will see a screen as below -
