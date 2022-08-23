@@ -116,7 +116,7 @@ DO
 DO
 DO...
 ```
-&nbsp;
+
 
 ### **Configure Tabjolt**
 
@@ -175,6 +175,8 @@ Provide values as in the examples shown below.
 - On the Linux machine, under the `~/.ssh` folder, there should be an `authorized_keys` file. If not, create it.
 - Add the contents of the `id_rsa.pub` file created by `ssh-keygen` command above to the `authorized_keys` file. This will allow clients who have the `sshUserIdentityFile.txt` file to connect to this Linux machine.
 
+&nbsp;
+&nbsp;
 
 ## **Step 3: Run Tabjolt**
 
@@ -201,7 +203,10 @@ and running the command such as the one below
 
 - Once the Tabjolt run starts, make a note of the run id that is displayed on the output as below. This will be used for filtering out the results as explained in the next section.
 <br>`Perf run result is saving to result repository. Please use this RUN ID 4 to view your result in Tableau`
+
 &nbsp;
+&nbsp;
+
 ## **Step 4: Analyze Results**
 
 - You can check for the error count on the CMD console while the test is in progress from the `Errors:` field as shown below
@@ -226,7 +231,8 @@ in the dashboard `Key Perf Indicators` in the workbook.
  - Perf metrics for the **Vizql server** are provided in the `Vizql` dashboard
  - Similarly, perf metrics for the **application server** and **data server** can be found in the `Application Server` and `DataServer` dashboards.
 
-
+ &nbsp;
+ &nbsp;
 
 # **If using Replayer**
 
@@ -236,6 +242,8 @@ in the dashboard `Key Perf Indicators` in the workbook.
 - The replay tool can also be run as a test in Tabjolt. A `Replay.jmx` file is provided in the `testplans` folder. You can call
 <br>`RunTabjolt.bat --t=testplans\Replay.jmx --z={replayFile:mytraffic.json}`. You will need to put the json file with traffic to replay in your Tabjolt installation folder, and specify it in the custom parameters argument.
 
+&nbsp;
+&nbsp;
 
 # **Frequently Asked Questions (FAQs)**
 
