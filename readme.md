@@ -1,15 +1,16 @@
 # **Latest Release**
-* [Release 2022.2.3](https://github.com/tableau/tabjolt/releases/tag/v2022.2.3)
-  * Please consider using the 2022.2.x release in order to ensure you are running with all available bug fixes and new features, including no log4j or Spring vulnerabilities.
-  * This release includes significant documentation updates available in the `docs` folder of the package.
+* [Release 2022.2.3](https://github.com/tableau/tabjolt/releases/tag/v2022.2.3) is the latest TabJolt release.
+* Please consider using the 2022.2.x releases in order to ensure you are running with all available bug fixes and new features, including no log4j or Spring vulnerabilities.
 
 # **Quick Start Guide**
 
-### Notes
+##### **Please note**
 
-  - Tabjolt only runs on Windows.
-  - Tabjolt can test both Windows and Linux Tableau Servers. This guide is geared toward a Windows Tableau Server installation.<br> However, online resources can provide guidance for Linux Tableau Server specific portions of configuration and execution.<br> This guide will be updated with Linux Tableau Server testing details in the near future.
+  - Tabjolt runs only on Windows.
+  - Tabjolt can test both Windows and Linux Tableau Servers. However, this guide is geared towards a Windows Tableau Server installation.
+  - Online resources can provide guidance for Linux Tableau Server specific portions of configuration and execution.This guide will be updated with Linux Tableau Server testing details in the near future.
 
+Here are step-by-step instructions for getting a quick start on TabJolt:
 
 ## **Step 1: Installation and setup**
 
@@ -36,25 +37,27 @@ PostgreSQL must be installed for Tabjolt to be able to save its results.
 - While installing Postgres, ensure that:
   - Either you use the root `postgres` user or your user has the rights to create and drop DB and tables.
   - The password for the `postgres` user (or your own user) and the port number matches with what is specified in
-`<Tabjolt Install Folder>\config\perftestconfig.yaml`
-  <br>Example:
+`<Tabjolt Install Folder>\config\perftestconfig.yaml`  
+&nbsp;
 
-  | Attribute | Value |
-  | ------ | ------ |
-  | **DBUserName** | `postgres` |
-  | **DBPassword** | `tabjoltresults` |
-  | **DBServerName** | `localhost` |
-  | **DBPort** | `5432` |
-  | **DBName** | `perfresults` |
+    **Example**:
 
-- To verify that PostgreSQL was installed correctly, run command `postgres -V` from the command prompt.<br>
-The command should return the postgres version<br>
+    | Attribute | Value |
+    | ------ | ------ |
+    | **DBUserName** | `postgres` |
+    | **DBPassword** | `tabjoltresults` |
+    | **DBServerName** | `localhost` |
+    | **DBPort** | `5432` |
+    | **DBName** | `perfresults` |
+
+- To verify that PostgreSQL was installed correctly, run command `postgres -V` from the command prompt. The command should return the postgres version<br>
 `postgres (PostgreSQL) 14.2`
-- If it returns the following error
-<br>`'postgres' is not recognized as an internal or external command, operable program or batch file.`
+- If it returns the following error:
+<br>`'postgres' is not recognized as an internal or external command, operable program or batch file.`,
 <br> Set the environment variable `PATH` to the `bin` folder of your postgres installation.
-<br>Example:
+<br>**Example**:
 <br>`set PATH=%PATH%;C:\Program Files\PostgreSQL\14\bin`
+&nbsp;
 &nbsp;
 
 #### **Verify Tableau Server connectivity**
@@ -63,11 +66,9 @@ The command should return the postgres version<br>
 (**Example**: `http://<myServerPortalURL>`) and the TSM UI (**Example**: `https://<myServerTSMPortalURL>:8850`)
 from your browser using their respective credentials.
 - Please ensure that the server under test is in a good state by assuring that the TSM UI portal homepage states -
-`Tableau Server is running` - on the top right.
-<br>Also ensure that all services on the page show a green check as shown below:
+`Tableau Server is running` - on the top right. Also ensure that all services on the page show a green check as shown below:
 
 <kbd>![Tableau Server Status](TableauServerStatus.png)</kbd>
-
 &nbsp;
 
 #### **Configure Tableau Server**
@@ -77,6 +78,7 @@ To confirm run the following on the Tableau Server machine:
 <br>`tsm configuration get -k service.jmx_enabled`
 - If the response to above command is `true` then JMX is enabled.
 Otherwise, please follow steps provided in [this](https://help.tableau.com/current/server/en-us/ports_jmx.htm) article.
+&nbsp;
 &nbsp;
 
 ### **Install Tabjolt**
@@ -114,12 +116,12 @@ DO
 DO
 DO...
 ```
+&nbsp;
 
 ### **Configure Tabjolt**
 
 - To configure Tabjolt, run the script `<TabjoltInstallationFolder>\ConfigureTabjolt.bat` from command prompt.
 Provide values as in the examples shown below.
-
 &nbsp;
 
 #### **Screen 1**:
@@ -242,7 +244,7 @@ in the dashboard `Key Perf Indicators` in the workbook.
 `Error 11000 was unexpected at this time`
 
 **Solution**:
-Please set both the environment variables `PATH` and `JAVA_HOME` prior to configuring or running TabJolt.  Sometimes, you may have multiple versions of Java running on your machine (which is fine!), hence, you may point both the environment variables to the correct Java version. Please note, TabJolt supports only **x64** bit **openJDK version 11** or above. If needed, please download it from here (https://openjdk.java.net/projects/jdk/17/).  If PATH and/or JAVA_HOME are not set properly, you may also encounter an error that says:
+Please set both the environment variables `PATH` and `JAVA_HOME` prior to configuring or running TabJolt.  Sometimes, you may have multiple versions of Java running on your machine (which is fine!), hence, you may point both the environment variables to the correct Java version. Please note, TabJolt supports only **x64** bit **openJDK version 11** or above. If needed, please download it from here (https://openjdk.java.net/projects/jdk/17/).  If `PATH` and/or `JAVA_HOME` are not set properly, you may also encounter an error that says:
 
 `'java' is not recognized as an internal or external command`
 
@@ -256,33 +258,23 @@ Please follow these steps to set the `PATH` and `JAVA_HOME` appropriately:
 * Once `JAVA_HOME` is set, please set the `PATH` variable to point to the `\bin` folder in the JDK installation directory, as shown below
     `set PATH=%PATH%;d:\jdk-17.0.2\bin`
 
-
-
 &nbsp;
 &nbsp;
 
-
-
-
-**2. I am receiving the following error while running `ConfigureTabjolt.bat`.  What is a possible cause?**
+**2. I am receiving the following error while running `ConfigureTabjolt.bat`.  What is a possible cause?**  
 `Error: Could not find or load main class
-com.tableausoftware.test.tools.TabjoltUI.tabjoltUI`
-**Solution**:
+com.tableausoftware.test.tools.TabjoltUI.tabjoltUI`  
 
+**Solution**:
 `ConfigureTabjolt.bat` must load the class `TabjoltUI` class, and in the example above, the class is not on the path.  
-To resolve this, on your command prompt, please navigate to the folder containing ConfigureTabjolt.bat (usually the TabJolt installation folder) and issue the command from there.
-
-
+To resolve this, on your command prompt, please navigate to the folder containing `ConfigureTabjolt.bat` (usually the TabJolt installation folder) and issue the command from there.
 
 &nbsp;
 &nbsp;
 
+**3. I see no results when I run `RunTabjolt.bat` . What’s wrong?**  
 
-
-
-**3. I see no results when I run `RunTabjolt.bat` . What’s wrong?**
 **Solution**:
-
 Most likely, your `RunTabjolt.bat` script has no content/erroneous content and it may be the result of a previous copy-paste that has rendered it empty.  For example, one can pipe it by mistake if the whole of the below code is copy-pasted and executed on the console. The > will erase all content from the target (`RunTabjolt.bat` in this case)
 
 `C:\TabJolt>RunTabjolt.bat --t=testplans\InteractVizLoadTest.jmx --d=10 --c=1`
@@ -294,22 +286,16 @@ C:\TabJolt>C:\TabJolt>RunTabjolt.bat --t=testplans\InteractVizLoadTest.jmx --d=1
 operable program or batch file.
 //After this command, the RunTabjolt.bat is rendered empty!
 ```
-
 &nbsp;
 &nbsp;
-
-
 
 **4. I am not able to configure TabJolt, receiving the error message : `Unable to get the top view URLs from Tableau server`.**
 
 **Solution**:
 This happens when your default site has no content. Please add some workbooks to the default site to make this work. Also, please verify that no errors were seen on the console while configuration.
 
-
 &nbsp;
 &nbsp;
-
-
 
 **5. My TabJolt test was running fine with 0 errors and now all of a sudden, I see errors `java.net.SocketTimeoutException: Read timed out`**
 
@@ -320,13 +306,8 @@ This error means that the server is taking longer to send the response until tim
 
 You may try running the same test by lowering down the thread count and see what happens. If it runs fine on lower thread count, then your server/server-cluster is not able to scale with the higher load.
 
-
-
 &nbsp;
 &nbsp;
-
-
-
 
 **6. During configuration stage, I am receiving an error at the first screen  `“Unable to login to Tableau Server. Please double check that Tableau server Uri, user name, and password that you have entered are correct”`**
 
@@ -336,7 +317,7 @@ Please follow these steps:
 
 * First, from the machine that has TabJolt installed, please make sure you can login to the site manually using your browser. If you cannot login with the browser, TabJolt will also not be able to login.
 * If you can login through your browser, but not through TabJolt, please copy and send the errors and full console log during this configuration step to us.
-* After a successful logging through the first screen during the configuration step, the typical structure of `ServerTestConfig.yaml` (in the \config folder of your TabJolt installation) looks as  below.
+* After a successful logging through the first screen during the configuration step, the typical structure of `ServerTestConfig.yaml` (in the \config folder of your TabJolt installation) should look as  below.
 
   ```
   default {
@@ -358,7 +339,6 @@ Please follow these steps:
   &nbsp;
   &nbsp;
 
-
 **7. I ran a simple test using TabJolt on the command line and got a run id. I just want to know load times of the vizzes. What is the best place to look for it?**
 
 **Solution**:
@@ -366,7 +346,6 @@ On the `PerformanceViz.twb` workbook, `Key Perf Indicators dashboard` (It’s th
 
   &nbsp;
   &nbsp;
-
 
 **8. I want to see the breakdown of the response times. Where do I look?**
 
@@ -380,21 +359,19 @@ On the `PerformanceViz.twb` workbook, please use the `Test Drill Down` dashboard
 &nbsp;
 
 
-**9. If I have 5 vizzes in my test, if I run Tabjolt with this command -**
+**9. If I have 5 vizzes in my test, and if I run Tabjolt with this command -**
 
-`RunTabjolt --t=testplans\InteractVizLoadTest.jmx --d=240 --c =1`
+`RunTabjolt --t=testplans\InteractVizLoadTest.jmx --d=240 --c =1`,
 
 **does TabJolt execute 1 user hitting 5 vizzes at once, or does it cycle through the 5 one at a time?**
 
 **Solution**:
-Let’s say TabJolt is executing the Jmeter test scenario `InteractVizLoadTest.jmx` with ``--d=240 --c=4`, parameters. The  `--c=4`, means that you have just `4 parallel threads` each hitting all your 5 vizzes again and again, one after the other  in their iteration. All the 4 threads keep iterating like this again and again until the duration of the test.
+Let’s say TabJolt is executing the Jmeter test scenario `InteractVizLoadTest.jmx` with `--d=240 --c=4`, parameters. The  `--c=4` means that you have just `4 parallel threads` each hitting all your `5 vizzes` again and again, one after the other  in their iteration. All the 4 threads keep iterating like this until the duration of the test.
 
 Further, the rate at which vizzes are loaded together by the `4 threads` in  `240 seconds` can be found from the `AVG TPS (Test Per Second)` field in the `Key Performance Indicators` dashboard. (AVG TPS => **average transactions per second** or **average viz-hitting per second**)
 
-
 &nbsp;
 &nbsp;
-
 
 **10. I messed up while creating the TabJolt results DB using Postgres. How do I drop and re-create the database?**  
 
@@ -464,13 +441,10 @@ Unable to connect to the PostgreSQL server "localhost". Check that the server is
 
 Please ensure you are using the port `5432` to connect to postgres. Also, please ensure you are supplying the same password for the `postgres` user that is mentioned in `perftestconfig.yaml` file in your `\config` folder.
 
-
-
   &nbsp;
   &nbsp;
 
-
-12. After issuing the command for `RunTabjolt.bat`, I received the following error: `Option only takes one value:` for `RunTabjolt.bat` command.    What am I missing?
+**12. After issuing the command for `RunTabjolt.bat`, I received the following error: `Option only takes one value:` for `RunTabjolt.bat` command.    What am I missing?**
 
 **Console output**:
 
@@ -493,7 +467,6 @@ You will need to provide thread count as parameters.
 <kbd>![Option takes 1 value](OptionTakesOneValue.jpg)</kbd>
 
 **Solution**:
-
 The most likely cause behind this is:
 
 * Using a single dash `-` as opposed to a double-dash `--` for one or more command line flags (parameters) for the `RunTabjolt.bat` command by mistake. (Notice the `—d` parameter in the above example)
