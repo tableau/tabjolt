@@ -446,7 +446,6 @@ Unable to connect to the PostgreSQL server "localhost". Check that the server is
 ```
 
 **Solution**:
-
 Please ensure you are using the port `5432` to connect to postgres. Also, please ensure you are supplying the same password for the `postgres` user that is mentioned in `perftestconfig.yaml` file in your `\config` folder.
 
   &nbsp;
