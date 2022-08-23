@@ -234,7 +234,7 @@ in the dashboard `Key Perf Indicators` in the workbook.
  &nbsp;
  &nbsp;
 
-# **If using Replayer**
+# **Using Replayer**
 
 - The Replay tool is now part of the Tabjolt installation.
 - You can learn more about the Replay tool on the Tableau Community Forums [here](https://community.tableau.com/s/question/0D54T00000CWd7cSAD/replayer).
