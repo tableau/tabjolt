@@ -2,6 +2,10 @@
 * [Release 2022.2.3](https://github.com/tableau/tabjolt/releases/tag/v2022.2.3) is the latest TabJolt release.
 * Please consider using the 2022.2.x releases in order to ensure you are running with all available bug fixes and new features, including no log4j or Spring vulnerabilities.
 
+# **Supportability & Help**
+Tabjolt is officially provided As-Is to the community as defined [here](https://www.tableau.com/support/itsupport). 
+However, there are lots of knowledgeable people in the Tableau community, and asking questions at the [Tableau Community Forums](https://community.tableau.com/s/topic/0TO4T000000Rk1dWAC/tabjolt) is a great path forward. In addition, questions can be posted in the Tableau [\#DataDev Slack workspace](https://tableau-datadev.slack.com/) either in \#general or \#tabjolt-feedback.
+
 # **Quick Start Guide**
 
 ##### **Please note**
