@@ -1,6 +1,7 @@
 # **Latest Release**
-* [Release 2022.2.3](https://github.com/tableau/tabjolt/releases/tag/v2022.2.3) is the latest TabJolt release.
-* Please consider using the 2022.2.x releases in order to ensure you are running with all available bug fixes and new features, including no log4j or Spring vulnerabilities.
+* [Release 2024.1.1](https://github.com/tableau/tabjolt/releases/tag/v2024.1.1) is the latest TabJolt release.
+* It works with Tableau Server 2024 or higher.
+* Please use 2023.x releases if you use Tableau Server 2023 or prior.
 
 # **Supportability & Help**
 Tabjolt is officially provided As-Is to the community as defined [here](https://www.tableau.com/support/itsupport). 
