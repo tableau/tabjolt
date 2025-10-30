@@ -1,5 +1,5 @@
 # **Latest Release**
-* [Release 2024.1.1](https://github.com/tableau/tabjolt/releases/tag/v2024.1.1) is the latest TabJolt release.
+* [Release 2025.3.1](https://github.com/tableau/tabjolt/releases/tag/v2025.3.1) is the latest TabJolt release.
 * It works with Tableau Server 2024 or higher.
 * Please use 2023.x releases if you use Tableau Server 2023 or prior.
 
